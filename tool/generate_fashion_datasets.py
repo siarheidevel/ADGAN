@@ -1,7 +1,17 @@
 import os
 
 # path for downloaded fashion images
-root_fashion_dir = 'your_path/deepfashion'
+root_fashion_images = '/home/deeplab/datasets/deepfashion/inshop/img_highres'
+
+# import glob
+# id2path = {}
+# glob.glob(root_fashion_images + '/**/*.jpg', recursive=True)[:10]
+# .replace('/home/deeplab/datasets/deepfashion/inshop/adgan/img','').replace('/','')
+
+import re
+# re.sub(r'(fashion)(WOMEN|MEN)(.+)(id)(\d{8})(\d{2}_\d)',r'/\2/\3/\4_\5/\6_','fashionWOMENSkirtsid0000062904_3back.jpg')
+
+root_fashion_dir = '/home/deeplab/datasets/deepfashion/inshop/adgan/highres'
 assert len(root_fashion_dir) > 0, 'please give the path of raw deep fashion dataset!'
 
 train_images = []
@@ -23,7 +33,10 @@ if not os.path.exists(train_path):
 	os.mkdir(train_path)
 
 for item in train_images:
-	from_ = os.path.join(root_fashion_dir, item)
+	# from_ = os.path.join(root_fashion_dir, item)
+	from_ = root_fashion_images + re.sub(r'(fashion)(WOMEN|MEN)(.+)(id)(\d{8})(\d{2}_\d)',r'/\2/\3/\4_\5/\6_',item)
+	if not os.path.isfile(from_):
+		print('not found:', from_)
 	to_ = os.path.join(train_path, item)
 	os.system('cp %s %s' %(from_, to_))
 
@@ -33,6 +46,9 @@ if not os.path.exists(test_path):
 	os.mkdir(test_path)
 
 for item in test_images:
-	from_ = os.path.join(root_fashion_dir, item)
+	# from_ = os.path.join(root_fashion_dir, item)
+	from_ = root_fashion_images + re.sub(r'(fashion)(WOMEN|MEN)(.+)(id)(\d{8})(\d{2}_\d)',r'/\2/\3/\4_\5/\6_',item)
+	if not os.path.isfile(from_):
+		print('not found:', from_)
 	to_ = os.path.join(test_path, item)
 	os.system('cp %s %s' %(from_, to_))

@@ -5,7 +5,7 @@ import os
 
 MISSING_VALUE = -1
 # fix PATH
-img_dir = 'your_path/deepfashion/fashion_resize'
+img_dir = '/home/deeplab/datasets/deepfashion/inshop/adgan/data'
 annotations_file = os.path.join(img_dir, 'fashion-resize-annotation-train.csv') #pose annotation path
 save_path = os.path.join(img_dir, 'trainK')
 if not os.path.exists(save_path):

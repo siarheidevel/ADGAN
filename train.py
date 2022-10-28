@@ -4,6 +4,21 @@ from data.data_loader import CreateDataLoader
 from models.models import create_model
 from util.visualizer import Visualizer
 
+# def add_path(path):
+#     import sys
+#     if path not in sys.path:
+#         sys.path.insert(0, path)
+
+
+# add_path('/home/deeplab/devel/ADGAN')
+
+# python train.py --dataroot /home1/menyf/data/deepfashion/fashion_resize --dirSem /home1/menyf/data/deepfashion 
+# --pairLst /home1/menyf/data/deepfashion/fashion-resize-pairs-train.csv --name fashion_adgan_test 
+# --model adgan --lambda_GAN 5 --lambda_A 1 --lambda_B 1 --dataset_mode keypoint --n_layers 3 --norm instance 
+# --batchSize 6 --pool_size 0 --resize_or_crop no --gpu_ids 8,9 --BP_input_nc 18 --SP_input_nc 8 
+# --no_flip --which_model_netG ADGen --niter 500 --niter_decay 500 
+# --checkpoints_dir ./checkpoints --L1_type l1_plus_perL1 --n_layers_D 3 --with_D_PP 1 --with_D_PB 1 --display_id 0
+
 opt = TrainOptions().parse()
 data_loader = CreateDataLoader(opt)
 dataset = data_loader.load_data()

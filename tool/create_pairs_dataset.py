@@ -36,14 +36,17 @@ def filter_not_valid(df_keypoints):
 
 
 def make_pairs(df):
-    persons = df.apply(lambda x: '_'.join(x['name'].split('_')[0:1]), axis=1)
+    # persons = df.apply(lambda x: '_'.join(x['name'].split('_')[0:1]), axis=1) #???????????
+    import re
+    persons = df.apply(lambda x: int(re.findall(r'id(\d{8,8})',x['name'])[0]), axis=1)
     df['person'] = persons
     fr, to = [], []
     for person in pd.unique(persons):
-        pairs = zip(*list(permutations(df[df['person'] == person]['name'], 2)))
+        pairs = list(permutations(df[df['person'] == person]['name'], 2))
+        # pairs = zip(*list(permutations(df[df['person'] == person]['name'], 2)))
         if len(pairs) != 0:
-            fr += list(pairs[0])
-            to += list(pairs[1])
+            fr += [p[0] for p in pairs]
+            to += [p[1] for p in pairs]
     pair_df = pd.DataFrame(index=range(len(fr)))
     pair_df['from'] = fr
     pair_df['to'] = to
@@ -52,7 +55,7 @@ def make_pairs(df):
 
 if __name__ == "__main__":
     images_for_test = 12000
-    dir ='/mnt/cephfs/common/lab/menyifang/projects/refCode/Pose-Transfer/fashion_data'
+    dir ='/home/deeplab/datasets/deepfashion/inshop/adgan/data'
     annotations_file_train = os.path.join(dir, 'fashion-resize-annotation-train.csv')
     pairs_file_train = os.path.join(dir, 'example_fashion-resize-pairs-train.csv')
 

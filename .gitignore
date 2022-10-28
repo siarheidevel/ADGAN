@@ -1,0 +1,6 @@
+data/
+models/
+*.pth
+checkpoints/
+checkpoints_1/
+**/__pycache__/*.pyc

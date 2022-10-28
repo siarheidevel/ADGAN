@@ -75,7 +75,7 @@ class VggStyleEncoder(nn.Module):
         super(VggStyleEncoder, self).__init__()
         # self.vgg = models.vgg19(pretrained=True).features
         vgg19 = models.vgg19(pretrained=False)
-        vgg19.load_state_dict(torch.load('/home1/menyf/data/deepfashion/vgg19-dcbb9e9d.pth'))
+        vgg19.load_state_dict(torch.load('/home/deeplab/datasets/deepfashion/inshop/adgan/data/vgg19-dcbb9e9d.pth'))
         self.vgg = vgg19.features
 
         for param in self.vgg.parameters():
@@ -127,8 +127,8 @@ class VggStyleEncoder(nn.Module):
             semi = sem[:, i, :, :]
             semi = torch.unsqueeze(semi, 1)
             semi = semi.repeat(1, x.size(1), 1, 1)
-            xi = x.mul(semi)
-            if i is 0:
+            xi = x.mul(semi) #xi = (x * torch.unsqueeze(sem[:, i, :, :], 1)),cv2.imwrite('oo1.png',254 * xi[0].permute(1,2,0).cpu().numpy())
+            if i == 0:
                 out = self.texture_enc(xi)
             else:
                 out = torch.cat([out, self.texture_enc(xi)], dim=1)

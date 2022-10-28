@@ -7,6 +7,12 @@ from util.visualizer import Visualizer
 from util import html
 import time
 
+# python test.py --dataroot your_path/deepfashion/fashion_resize --dirSem your_path/deepfashion --pairLst your_path/deepfashion/fashion-resize-pairs-test.csv 
+# --checkpoints_dir ./checkpoints --results_dir ./results --name fashion_AdaGen_sty512_nres8_lre3_SS_fc_vgg_cxloss_ss_merge3 
+# --model adgan --phase test --dataset_mode keypoint --norm instance --batchSize 1 --resize_or_crop no 
+# --gpu_ids 0,1 --BP_input_nc 18 --no_flip --which_model_netG ADGen --which_epoch 800
+
+
 opt = TestOptions().parse()
 opt.nThreads = 1   # test code only supports nThreads = 1
 opt.batchSize = 1  # test code only supports batchSize = 1
